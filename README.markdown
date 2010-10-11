@@ -5,7 +5,7 @@ This is a payment module for the Magento shopping cart which allows you to proce
 
 The module was originally released commercially with IITC Ltd. but as the company is stopping trading and NETBANX released their own module I have decided to open source it.
 
-You can still <(view the original page)[http://iitc.info/products/magento-netbanx]> for now although any new information is going to be either left here or <(on my blog)[http://kzar.co.uk/blog/view/netbanx-magento-payment-module]>.
+You can still [view the original page](http://iitc.info/products/magento-netbanx) for now although any new information is going to be either left here or [on my blog](http://kzar.co.uk/blog/view/netbanx-magento-payment-module).
 
 Installation
 ------------
@@ -20,7 +20,7 @@ Usage
 
 - The NETBANX payment option should now be visible to your customers, orders using NETBANX have notes saved giving details of payments / any problems. When you first install the module I recommend performing tests and checking these details to make sure everything is working correctly.
 
-- If you want to display the NETBANX reference in your "Thank you" emails include this block; {{block type="Netbanx/lookup" order_id=$order.increment_id}}
+- If you want to display the NETBANX reference in your "Thank you" emails include this block; `{{block type="Netbanx/lookup" order_id=$order.increment_id}}`
 
 Notes
 -----
