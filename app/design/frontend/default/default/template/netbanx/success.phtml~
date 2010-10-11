@@ -1,0 +1,31 @@
+<?php
+/* Magento payment module for NETBANX                            *
+ * Copyright 2009, Independant IT Consulting Limited             *
+ *                                                               *
+ * This is commercially licensed code, before installing         *
+ * or using, you must agree with the Software License Agreement  *
+ * which you should have been given, if not it's available at    *
+ * http://iitc.info/products/docs/singledomainlicense            *
+ * (If unavailable above, email sales@iitc.info for a copy.)     */
+?>
+
+<?php
+$params = $this->getRequest()->getParams();
+if (!array_key_exists('nbx_netbanx_reference', $params) || !array_key_exists('nbx_payment_amount', $params))
+  echo '';
+else {
+  $ref = htmlentities($params['nbx_netbanx_reference']);
+
+  $amount = htmlentities($params['nbx_payment_amount']);
+  if (Mage::getStoreConfig('payment/Netbanx/payment_amount_format_isminor'))
+    $amount = sprintf('%0.2f', ($amount / 100));
+?>
+<div class="page-head">
+   <h3><?php echo $this->__('Order complete!') ?></h3>
+</div>
+
+<p style='color:green'><b>Thanks, we've received your payment. Your order is complete.</b></p>
+<p>Your account will be updated in a few minutes when we receive confirmation from NETBANX. You should receive confirmation emails shortly.</p>
+
+<p><b>Payment amount</b>: &pound;<?php echo $amount; ?></p>
+<p><b>NETBANX Reference</b>: <?php echo $ref; }?></p>

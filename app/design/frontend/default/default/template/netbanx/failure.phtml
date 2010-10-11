@@ -1,0 +1,24 @@
+<?php
+/* This file is part of the Magento Netbanx payment module (iitc).             *
+ * Copyright Dave Barker 2009                                                  *
+ *                                                                             *
+ * The Magento Netbanx payment module (iitc) is free software: you can         *
+ * redistribute it and/or modify it under the terms of the GNU General Public  *
+ * License as published by the Free Software Foundation, either version 3      *
+ * of the License, or (at your option) any later version.                      *
+ *                                                                             *
+ * the Magento Netbanx payment module (iitc) is distributed in the hope        *
+ * that it will be useful, but WITHOUT ANY WARRANTY; without even the implied  *
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   *
+ * GNU General Public License for more details.                                *
+ *                                                                             *
+ * You should have received a copy of the GNU General Public License           *
+ * along with the Magento Netbanx payment module (iitc).                       *
+ * If not, see <http://www.gnu.org/licenses/>.                                 */
+?>
+<div class="page-head">
+   <h3><?php echo $this->__('Payment failed') ?></h3>
+</div>
+
+<p style='color:red'><b>Sorry, your payment didn't go through.</b></p>
+<p>Please <a href="<?php echo $this->getURL('checkout/onepage'); ?>" target="_parent">try again</a>, or if you need help <a href="<?php echo $this->getURL('contacts'); ?>" target="_parent">get in touch</a>.</p>

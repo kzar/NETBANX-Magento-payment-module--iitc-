@@ -1,0 +1,15 @@
+<?php
+/* Magento payment module for NETBANX                            *
+ * Copyright 2009, Independant IT Consulting Limited             *
+ *                                                               *
+ * This is commercially licensed code, before installing         *
+ * or using, you must agree with the Software License Agreement  *
+ * which you should have been given, if not it's available at    *
+ * http://iitc.info/products/docs/singledomainlicense            *
+ * (If unavailable above, email sales@iitc.info for a copy.)     */
+?>
+<fieldset class="form-list">
+   <ul id='payment_form_<?php echo $this->getMethodCode(); ?>' style='display:none'>
+     <li>Your order will be securely processed using NETBANX on the next page.</li>
+   </ul>
+</fieldset>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!--
+/* Magento payment module for NETBANX                            *
+ * Copyright 2009, Independant IT Consulting Limited             *
+ *                                                               *
+ * This is commercially licensed code, before installing         *
+ * or using, you must agree with the Software License Agreement  *
+ * which you should have been given, if not it's available at    *
+ * http://iitc.info/products/docs/singledomainlicense            *
+ * (If unavailable above, email sales@iitc.info for a copy.)     */
+-->
+<layout version="0.1.0">
+  <netbanx_payment_index>
+    <reference name="root">
+      <action method="setTemplate"><template>page/1column.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="page/html" name="netbanx_index" template="netbanx/payment.phtml" />
+    </reference>
+  </netbanx_payment_index>
+  <netbanx_payment_return>
+    <reference name="root">
+      <action method="setTemplate"><template>netbanx/lightweight.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="page/html" name="netbanx_return" template="netbanx/return.phtml" />
+    </reference>
+  </netbanx_payment_return>
+  <netbanx_payment_success>
+    <reference name="root">
+      <action method="setTemplate"><template>netbanx/lightweight.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="page/html" name="netbanx_return" template="netbanx/success.phtml" />
+    </reference>
+  </netbanx_payment_success>
+  <netbanx_payment_failure>
+    <reference name="root">
+      <action method="setTemplate"><template>netbanx/lightweight.phtml</template></action>
+    </reference>
+    <reference name="content">
+      <block type="page/html" name="netbanx_return" template="netbanx/failure.phtml" />
+    </reference>
+  </netbanx_payment_failure>
+</layout>

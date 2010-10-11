@@ -1,0 +1,16 @@
+<?php
+class IITC_Netbanx_Block_Return extends Mage_Core_Block_Abstract{
+
+  protected function _toHtml() {
+    $html  = '<h3>What happens now?</h3>';
+      
+    $html .= '<p>Thanks, it takes a few minutes for our system to update your order status.</p>';
+
+    $html .= '<p>If your payment went through you will receive confirmation via email shortly.</p>';
+    $html .= '<p>If not you can <a href="' .  $this->getURL('checkout/onepage') . '" target="_parent">try again</a>, or if you\'re not sure <a href="' .  $this->getURL('contacts') . '" target="_parent">get in touch</a>.</p>';
+
+    return $html;
+  }
+}
+?>
+

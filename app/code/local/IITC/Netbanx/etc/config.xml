@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!--
+/* This file is part of the Magento Netbanx payment module (iitc).             *
+ * Copyright Dave Barker 2009                                                  *
+ *                                                                             *
+ * The Magento Netbanx payment module (iitc) is free software: you can         *
+ * redistribute it and/or modify it under the terms of the GNU General Public  *
+ * License as published by the Free Software Foundation, either version 3      *
+ * of the License, or (at your option) any later version.                      *
+ *                                                                             *
+ * the Magento Netbanx payment module (iitc) is distributed in the hope        *
+ * that it will be useful, but WITHOUT ANY WARRANTY; without even the implied  *
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   *
+ * GNU General Public License for more details.                                *
+ *                                                                             *
+ * You should have received a copy of the GNU General Public License           *
+ * along with the Magento Netbanx payment module (iitc).                       *
+ * If not, see <http://www.gnu.org/licenses/>.                                 */
+-->
+<config>
+  <modules>
+    <IITC_Netbanx>
+      <version>0.0.2</version> <!-- inc for db updates -->
+    </IITC_Netbanx>
+  </modules>
+  <global>
+
+    <blocks>
+      <Netbanx>
+        <class>IITC_Netbanx_Block</class>
+      </Netbanx>
+    </blocks>
+
+    <models>
+      <Netbanx>
+        <class>IITC_Netbanx_Model</class>
+      </Netbanx>
+    </models>
+
+    <resources>
+      <Netbanx_setup>
+        <setup>
+          <module>IITC_Netbanx</module>
+        </setup>
+        <connection>
+          <use>core_setup</use>
+        </connection>
+      </Netbanx_setup>
+
+      <Netbanx_write>
+        <connection>
+          <use>core_write</use>
+        </connection>
+      </Netbanx_write>
+
+      <Netbanx_read>
+        <connection>
+          <use>core_read</use>
+        </connection>
+      </Netbanx_read>
+    </resources>
+  </global>
+
+  <frontend>
+    <routers>
+      <netbanx>
+	<use>standard</use>
+	<args>
+	  <module>IITC_Netbanx</module>
+	  <frontName>netbanx</frontName>
+	</args>
+      </netbanx>
+    </routers>
+
+    <layout>
+      <updates>
+	<Netbanx>
+	  <file>netbanx.xml</file>
+	</Netbanx>
+      </updates>
+    </layout>
+  </frontend>
+
+  <default>
+    <payment>
+      <Netbanx>
+        <active>1</active>
+	<model>Netbanx/PaymentMethod</model>
+	<merchant_name>changetomerchname</merchant_name>
+        <order_status>processing</order_status>
+        <title>Credit Card (NETBANX)</title>
+	<payment_amount_format_isminor>1</payment_amount_format_isminor>
+	<test_mode>1</test_mode>
+	<redirect_enabled>0</redirect_enabled>
+        <cctypes>AE,VI,MC,DI</cctypes>
+        <payment_action>authorize</payment_action>
+        <allowspecific>0</allowspecific>
+      </Netbanx>
+    </payment>
+  </default>
+</config>

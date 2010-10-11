@@ -1,0 +1,40 @@
+<?php
+/* This file is part of the Magento Netbanx payment module (iitc).             *
+ * Copyright Dave Barker 2009                                                  *
+ *                                                                             *
+ * The Magento Netbanx payment module (iitc) is free software: you can         *
+ * redistribute it and/or modify it under the terms of the GNU General Public  *
+ * License as published by the Free Software Foundation, either version 3      *
+ * of the License, or (at your option) any later version.                      *
+ *                                                                             *
+ * the Magento Netbanx payment module (iitc) is distributed in the hope        *
+ * that it will be useful, but WITHOUT ANY WARRANTY; without even the implied  *
+ * warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the   *
+ * GNU General Public License for more details.                                *
+ *                                                                             *
+ * You should have received a copy of the GNU General Public License           *
+ * along with the Magento Netbanx payment module (iitc).                       *
+ * If not, see <http://www.gnu.org/licenses/>.                                 */
+
+?>
+
+<?php
+$params = $this->getRequest()->getParams();
+if (!array_key_exists('nbx_netbanx_reference', $params) || !array_key_exists('nbx_payment_amount', $params))
+  echo '';
+else {
+  $ref = htmlentities($params['nbx_netbanx_reference']);
+
+  $amount = htmlentities($params['nbx_payment_amount']);
+  if (Mage::getStoreConfig('payment/Netbanx/payment_amount_format_isminor'))
+    $amount = sprintf('%0.2f', ($amount / 100));
+?>
+<div class="page-head">
+   <h3><?php echo $this->__('Order complete!') ?></h3>
+</div>
+
+<p style='color:green'><b>Thanks, we've received your payment. Your order is complete.</b></p>
+<p>Your account will be updated in a few minutes when we receive confirmation from NETBANX. You should receive confirmation emails shortly.</p>
+
+<p><b>Payment amount</b>: &pound;<?php echo $amount; ?></p>
+<p><b>NETBANX Reference</b>: <?php echo $ref; }?></p>
