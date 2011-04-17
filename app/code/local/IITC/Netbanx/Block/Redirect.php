@@ -19,29 +19,43 @@
 class IITC_Netbanx_Block_Redirect extends Mage_Core_Block_Abstract {
 
   protected function _toHtml() {
-    // Make sure there's actually an order first..
-    if ((!is_object($this->getOrder())) || (!is_object($this->getOrder()->getBillingAddress())))
+    $session = Mage::getSingleton('checkout/session');
+    $order = Mage::getModel('sales/order')->loadbyIncrementId($session->getLastRealOrderId());
+
+    // Prevent ugly errors
+    $data = $order->getData();
+    if (empty($data) || !is_object($order) ||
+        !is_object($order->getBillingAddress()))
       return "<h3>Please refresh the page</h3>";
 
+    $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_HOLDED,
+			       'Customer redirected to NETBANX payment page, awaiting payment confirmation from NETBANX',
+			       true);
+    $order->save();
+
     // Construct the redirection form
-    $form = new Varien_Data_Form();
-    $form->setAction($this->payment_url())
-      ->Setid('netbanx_iframe')
-      ->setName('netbanx_iframe')
-      ->setMethod('POST')
-      ->setUseContainer(true);
+    $form = new Varien_Data_Form(array(
+      'id' => 'netbanx_iframe',
+      'action' => $this->payment_url(),
+      'name' => 'netbanx_iframe',
+      'method' => 'POST'));
+
+    $form->setUseContainer(true);
+
     $form->addField("clickhere", 'submit', array('name'=>"clickhere", 'value' => "click here", 'label'=>'If it\'s taking too long'));
 
     // Add all the NETBANX parameters
-    foreach ($this->craft_parameters() as $name => $value)
+    foreach ($this->craft_parameters($order) as $name => $value)
       $form->addField($name, 'hidden', array('name' => $name, 'value' => $value));
-	
-    // Render the page
-    $html  = '<html><body>' . $this->__('Please wait whilst you\'re taken to the secure NETBANX page.') . '<br><br>';
-    $html .= $form->toHtml();  
+
+
+    // Craft the HTML and return
+    $html = $form->toHtml();
     $html .= '<script type="text/javascript">document.getElementById("netbanx_iframe").submit();</script>';
-    $html .= '</body></html>';
-    
+
+    if (Mage::getStoreConfig('payment/Netbanx/iframe'))
+      $html  = '<html><body>' . $this->__('Please wait whilst you\'re taken to the secure NETBANX page.') . '<br><br>' . $html .  '</body></html>';
+
     return $html;
   }
     
@@ -54,8 +68,7 @@ class IITC_Netbanx_Block_Redirect extends Mage_Core_Block_Abstract {
     return $url . Mage::getStoreConfig('payment/Netbanx/merchant_name');
   }
     
-  function craft_parameters() {
-    $order = $this->getOrder();
+  function craft_parameters($order) {
     $billing = $order->getBillingAddress();
     
     $postcode = $billing->getPostcode();

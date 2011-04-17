@@ -25,7 +25,7 @@ class IITC_Netbanx_Model_PaymentMethod extends Mage_Payment_Model_Method_Cc {
   public function getOrderPlaceRedirectUrl() {
     return Mage::getUrl('netbanx/payment', array('_secure'=>true));
   }
-  
+
   public function validate() {
     // NETBANX does the validation
     return $this;

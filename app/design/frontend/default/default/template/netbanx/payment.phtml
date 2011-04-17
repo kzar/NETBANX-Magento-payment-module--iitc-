@@ -17,8 +17,22 @@
  * If not, see <http://www.gnu.org/licenses/>.                                 */
 
 ?>
+
+
 <div class="page-head">
    <h3><?php echo $this->__('Please follow the instructions from NETBANX below to complete your order') ?></h3>
 </div>
 
+<?php
+   if (!Mage::getStoreConfig('payment/Netbanx/iframe')) {
+     echo $this->getLayout()
+               ->createBlock('Netbanx/redirect')
+               ->toHtml();
+   } else {
+?>
 <iframe style="width: 100%; height: 600px; border: 0px;" src="<?php echo Mage::getUrl('*/*/redirect', array('_secure'=>true)) ?>" id="magentonetbanxiframe" name="magentonetbanxiframe"></iframe>
+
+<?php
+}
+?>
+

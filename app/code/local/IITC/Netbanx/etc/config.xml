@@ -20,7 +20,7 @@
 <config>
   <modules>
     <IITC_Netbanx>
-      <version>0.0.2</version> <!-- inc for db updates -->
+      <version>0.0.4</version> <!-- inc for db updates -->
     </IITC_Netbanx>
   </modules>
   <global>
@@ -89,6 +89,7 @@
 	<merchant_name>changetomerchname</merchant_name>
         <order_status>processing</order_status>
         <title>Credit Card (NETBANX)</title>
+        <iframe>1</iframe>
 	<payment_amount_format_isminor>1</payment_amount_format_isminor>
 	<test_mode>1</test_mode>
 	<redirect_enabled>0</redirect_enabled>

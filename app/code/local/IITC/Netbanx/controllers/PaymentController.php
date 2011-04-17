@@ -21,28 +21,13 @@ class IITC_Netbanx_PaymentController extends Mage_Core_Controller_Front_Action {
   public function indexAction() {
     $this->loadLayout();
     $this->renderLayout();
-  }		
- 		
+  }
+
   public function redirectAction() {
-    $session = Mage::getSingleton('checkout/session');
-    $order = Mage::getModel('sales/order')->loadbyIncrementId($session->getLastRealOrderId());
-
-    // Prevent ugly errors
-    $data = $order->getData();
-    if (empty($data))
-      return '';
-
-    $order->addStatusToHistory(Mage_Sales_Model_Order::STATE_HOLDED,
-			       'Customer redirected to NETBANX payment page, awaiting payment confirmation from NETBANX',
-			       true);
-    $order->save();
-    
     $this->getResponse()
-      ->setBody($this->getLayout()
-		->createBlock('Netbanx/redirect')
-		->setOrder($order)
-		->setSession($session)
-		->toHtml());
+         ->setBody($this->getLayout()
+         ->createBlock('Netbanx/redirect')
+         ->toHtml());
   }
 
   public function lookupAction() {
@@ -71,12 +56,26 @@ class IITC_Netbanx_PaymentController extends Mage_Core_Controller_Front_Action {
     $quote->setIsActive(false);
     $quote->delete();
 
-    $this->loadLayout();
+    if (Mage::getStoreConfig('payment/Netbanx/iframe'))
+      $this->loadLayout();
+    else
+      $this->loadLayout()
+           ->getLayout()
+           ->getBlock('root')
+           ->setTemplate('page/1column.phtml');
+
     $this->renderLayout();
   }
 
   public function failureAction() {
-    $this->loadLayout();
+    if (Mage::getStoreConfig('payment/Netbanx/iframe'))
+      $this->loadLayout();
+    else
+      $this->loadLayout()
+           ->getLayout()
+           ->getBlock('root')
+           ->setTemplate('page/1column.phtml');
+
     $this->renderLayout();
   }
   public function returnAction() {
@@ -92,7 +91,14 @@ class IITC_Netbanx_PaymentController extends Mage_Core_Controller_Front_Action {
       $order->save();
     }
 
-    $this->loadLayout();
+    if (Mage::getStoreConfig('payment/Netbanx/iframe'))
+      $this->loadLayout();
+    else
+      $this->loadLayout()
+           ->getLayout()
+           ->getBlock('root')
+           ->setTemplate('page/1column.phtml');
+
     $this->renderLayout();
   }
 }
